@@ -3589,7 +3589,7 @@ static QDF_STATUS wma_update_iface_params(tp_wma_handle wma,
 					  struct bss_params *add_bss)
 {
 	struct wma_txrx_node *iface;
-	uint8_t vdev_id;
+	uint8_t vdev_id = 0;
 
 	vdev_id = add_bss->staContext.smesessionId;
 	iface = &wma->interfaces[vdev_id];
