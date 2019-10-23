@@ -2981,16 +2981,6 @@ static int qseecom_unload_app(struct qseecom_dev_handle *data,
 
 	if (!ptr_app->ref_cnt) {
 		ret = __qseecom_unload_app(data, data->client.app_id);
-		if (ret == -EBUSY) {
-			/*
-			 * If unload failed due to EBUSY, don't free mem
-			 * just restore app ref_cnt and return -EBUSY
-			 */
-			pr_warn("unload ta %d(%s) EBUSY\n",
-				data->client.app_id, data->client.app_name);
-			ptr_app->ref_cnt++;
-			return ret;
-		}
 		spin_lock_irqsave(&qseecom.registered_app_list_lock, flags);
 		list_del(&ptr_app->list);
 		spin_unlock_irqrestore(&qseecom.registered_app_list_lock,
@@ -2999,7 +2989,7 @@ static int qseecom_unload_app(struct qseecom_dev_handle *data,
 	}
 
 unload_exit:
-	if (data->client.dmabuf) {
+	if (data->client.dmabuf)
 		qseecom_vaddr_unmap(data->client.sb_virt, data->client.sgt,
 			data->client.attach, data->client.dmabuf);
 		MAKE_NULL(data->client.sgt,
