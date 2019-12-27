@@ -5240,6 +5240,8 @@ void _ipa_disable_clks_v3_0(void)
  */
 void ipa3_disable_clks(void)
 {
+	int type;
+
 	if (ipa3_ctx->ipa3_hw_mode != IPA_HW_MODE_NORMAL) {
 		IPAERR("not supported in this mode\n");
 		return;
@@ -5248,10 +5250,15 @@ void ipa3_disable_clks(void)
 	IPADBG("disabling IPA clocks and bus voting\n");
 
 	/*
-	 * We see a NoC error on GSI on this flag sequence.
-	 * Need to set this flag first before clock off.
+	 * If there is still pending gsi irq, this indicate
+	 * issue on GSI FW side. We need to capture before
+	 * turn off the ipa clock.
 	 */
-	atomic_set(&ipa3_ctx->ipa_clk_vote, 0);
+	type = gsi_pending_irq_type();
+	if (type) {
+		IPAERR("unexpected gsi irq type: %d\n", type);
+		ipa_assert();
+	}
 
 	ipa3_ctx->ctrl->ipa3_disable_clks();
 
