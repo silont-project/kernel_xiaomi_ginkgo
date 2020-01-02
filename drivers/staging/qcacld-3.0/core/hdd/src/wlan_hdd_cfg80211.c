@@ -20270,6 +20270,8 @@ static inline void wlan_hdd_clear_wapi_privacy(struct hdd_adapter *adapter)
 {
 }
 #endif
+	return "";
+}
 
 /**
  * wlan_hdd_cfg80211_clear_privacy() - reset STA security parameters
@@ -20769,6 +20771,7 @@ static int wlan_hdd_cfg80211_connect(struct wiphy *wiphy,
  */
 static const char *hdd_ieee80211_reason_code_to_str(uint16_t reason)
 {
+#ifdef WLAN_DEBUG
 	switch (reason) {
 	CASE_RETURN_STRING(WLAN_REASON_UNSPECIFIED);
 	CASE_RETURN_STRING(WLAN_REASON_PREV_AUTH_NOT_VALID);
@@ -20820,6 +20823,8 @@ static const char *hdd_ieee80211_reason_code_to_str(uint16_t reason)
 	default:
 		return "Unknown";
 	}
+#endif
+	return "";
 }
 
 /**
