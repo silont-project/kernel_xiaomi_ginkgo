@@ -1146,7 +1146,7 @@ static void mhi_process_cmd_completion(struct mhi_controller *mhi_cntrl,
 		chan = MHI_TRE_GET_CMD_CHID(cmd_pkt);
 		if (chan >= mhi_cntrl->max_chan) {
 			MHI_ERR("invalid channel id %u\n", chan);
-			break;
+			goto del_ring_el;
 		}
 		mhi_chan = &mhi_cntrl->mhi_chan[chan];
 		write_lock_bh(&mhi_chan->lock);
@@ -1156,6 +1156,7 @@ static void mhi_process_cmd_completion(struct mhi_controller *mhi_cntrl,
 		break;
 	}
 
+del_ring_el:
 	mhi_del_ring_element(mhi_cntrl, mhi_ring);
 }
 
