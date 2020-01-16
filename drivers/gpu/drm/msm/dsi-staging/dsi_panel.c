@@ -636,7 +636,7 @@ static int dsi_panel_update_backlight(struct dsi_panel *panel,
 	dsi = &panel->mipi_device;
 
 #ifdef CONFIG_BACKLIGHT_KTD3136
-    sgm_brightness_set(bl_lvl);
+	sgm_brightness_set(bl_lvl);
 #else
 	rc = mipi_dsi_dcs_set_display_brightness(dsi, bl_lvl);
 	if (rc < 0)
