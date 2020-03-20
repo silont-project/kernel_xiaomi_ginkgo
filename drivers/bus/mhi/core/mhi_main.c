@@ -1358,11 +1358,10 @@ int mhi_process_tsync_ev_ring(struct mhi_controller *mhi_cntrl,
 	u64 remote_time;
 	int ret = 0;
 
-	spin_lock_bh(&mhi_event->lock);
-	dev_rp = mhi_to_virtual(ev_ring, er_ctxt->rp);
-	if (ev_ring->rp == dev_rp) {
-		spin_unlock_bh(&mhi_event->lock);
-		goto exit_tsync_process;
+	if (unlikely(MHI_EVENT_ACCESS_INVALID(mhi_cntrl->pm_state))) {
+		MHI_ERR("No EV access, PM_STATE:%s\n",
+			to_mhi_pm_state_str(mhi_cntrl->pm_state));
+		return -EIO;
 	}
 
 	/* if rp points to base, we need to wrap it around */
