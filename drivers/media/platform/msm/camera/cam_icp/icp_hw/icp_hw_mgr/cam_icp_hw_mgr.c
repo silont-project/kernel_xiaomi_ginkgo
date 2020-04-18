@@ -3680,10 +3680,8 @@ static int cam_icp_mgr_process_cmd_desc(struct cam_icp_hw_mgr *hw_mgr,
 			if (rc) {
 				CAM_ERR(CAM_ICP, "get cmd buf failed %x",
 					hw_mgr->iommu_hdl);
-				if (num_cmd_buf > 0)
-					num_cmd_buf--;
-				else
-					num_cmd_buf = 0;
+				num_cmd_buf = (num_cmd_buf > 0) ?
+					num_cmd_buf - 1 : 0;
 				goto rel_cmd_buf;
 			}
 			*fw_cmd_buf_iova_addr = addr;
