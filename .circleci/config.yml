@@ -4,7 +4,7 @@ jobs:
    docker:
       - image: azrim89/kurumi:rev1
    steps:
-      - run: git clone --depth=1 https://github.com/azrim/kernel_xiaomi_ginkgo.git -b $CIRCLE_BRANCH .
+      - run: git clone --depth=1 https://github.com/silont-project/kernel_xiaomi_ginkgo.git -b $CIRCLE_BRANCH .
       - run: curl -OsSL https://github.com/azrim/script/raw/master/kernel/ci.sh
       - run: bash ci.sh
 workflows:
