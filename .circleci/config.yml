@@ -1,0 +1,19 @@
+version: 2.1
+jobs:
+  compile:
+   docker:
+      - image: azrim89/kurumi:rev-3
+   steps:
+      - run:
+          no_output_timeout: 50m
+          command: |
+           git clone --depth=1 https://github.com/silont-project/kernel_xiaomi_ginkgo.git -b $CIRCLE_BRANCH ginkgo
+           cd ginkgo
+           git clone https://github.com/azrim/script.git -b master
+           chmod +x script/kernel/drone.sh
+           ./script/kernel/drone.sh
+workflows:
+  version: 2.1
+  cooking:
+    jobs:
+      - compile
