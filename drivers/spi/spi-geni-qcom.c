@@ -1719,10 +1719,6 @@ static int spi_geni_probe(struct platform_device *pdev)
 	if (ret)
 		dev_err(&pdev->dev, "Failed to create sysfs\n");
 
-	snprintf(boot_marker, sizeof(boot_marker),
-			"M - DRIVER GENI_SPI_%d Ready", spi->bus_num);
-	place_marker(boot_marker);
-
 	return ret;
 spi_geni_probe_unmap:
 	devm_iounmap(&pdev->dev, geni_mas->base);
