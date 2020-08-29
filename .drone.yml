@@ -6,12 +6,7 @@ name: silont-project
 steps: 
   - 
     commands:
-      - "export BOT_API_TOKEN=$BOT_API_KEY"
-      - "curl -OsSL https://github.com/azrim/script/raw/master/kernel/drone.sh"
-      - "bash drone.sh"
-    environment: 
-      TOKEN: 
-        from_secret: BOT_API_KEY
+      - "bash build.sh"
     image: azrim89/kurumi:rev-3
     name: azrim
     trigger: 
