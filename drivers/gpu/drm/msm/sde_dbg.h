@@ -448,8 +448,6 @@ static inline int sde_dbg_reg_register_base(const char *name,
 	return 0;
 }
 
-}
-
 static inline void sde_dbg_reg_register_dump_range(const char *base_name,
 		const char *range_name, u32 offset_start, u32 offset_end,
 		uint32_t xin_id)
