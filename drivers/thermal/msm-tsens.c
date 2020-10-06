@@ -288,7 +288,7 @@ int tsens_tm_probe(struct platform_device *pdev)
 		pr_err("Error initializing TSENS controller\n");
 		return rc;
 	}
-
+#ifdef CONFIG_IPC_LOGGING
 	snprintf(tsens_name, sizeof(tsens_name), "tsens_wq_%pa",
 		&tmdev->phys_addr_tm);
 
@@ -299,7 +299,7 @@ int tsens_tm_probe(struct platform_device *pdev)
 		return rc;
 	}
 	INIT_WORK(&tmdev->therm_fwk_notify, tsens_therm_fwk_notify);
-
+#endif
 	rc = tsens_thermal_zone_register(tmdev);
 	if (rc) {
 		pr_err("Error registering the thermal zone\n");
