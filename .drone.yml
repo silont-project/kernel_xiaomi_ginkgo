@@ -6,9 +6,10 @@ name: silont-project
 steps: 
   - 
     commands:
-      - "apt update -qqy && apt install -qqy openjdk-11-jre-headless"
-      - "curl -OsSL https://github.com/azrim/script/raw/master/kernel/drone.sh"
-      - "bash drone.sh"
+      - apt update -qqy && apt install -qqy openjdk-11-jre-headless
+      - wget -q https://github.com/rzlamrr/scripts/raw/master/KERNEL/compile.sh
+      - chmod +x compile.sh
+      - bash compile.sh -c silont
     environment: 
       TOKEN: 
         from_secret: BOT_API_KEY
