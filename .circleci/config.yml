@@ -1,0 +1,22 @@
+version: 2.1
+jobs:
+  compile:
+   docker:
+      - image: fadlyas/kernel_dockerfile:latest
+   steps:
+      - run:
+          command: |
+           apt update -qq -y && apt install -qq -y openjdk-11-jre-headless
+           git clone --depth=1 https://github.com/silont-project/kernel_xiaomi_ginkgo -b new silont
+           cd silont
+           wget -q https://github.com/rzlamrr/scripts/raw/master/KERNEL/compile.sh
+           chmod +x compile.sh
+           bash compile.sh -c silont
+           ls
+workflows:
+  version: 2.1
+  cooking:
+    jobs:
+      - compile:
+          context:
+            - kernel
