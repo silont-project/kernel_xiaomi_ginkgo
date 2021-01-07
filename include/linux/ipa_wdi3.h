@@ -33,7 +33,8 @@ enum ipa_wdi_version {
 };
 
 #define IPA_WDI3_TX_DIR 1
-#define IPA_WDI3_RX_DIR 2
+#define IPA_WDI3_TX1_DIR 2
+#define IPA_WDI3_RX_DIR 3
 
 /**
  * struct ipa_wdi_init_in_params - wdi init input parameters
@@ -89,6 +90,7 @@ struct ipa_wdi_hdr_info {
  * @is_meta_data_valid: if meta data is valid
  * @meta_data: meta data if any
  * @meta_data_mask: meta data mask
+ * @is_tx1_used: to indicate whether 2.4g or 5g iface
  */
 struct ipa_wdi_reg_intf_in_params {
 	const char *netdev_name;
@@ -97,6 +99,7 @@ struct ipa_wdi_reg_intf_in_params {
 	u8 is_meta_data_valid;
 	u32 meta_data;
 	u32 meta_data_mask;
+    u8 is_tx1_used;
 };
 
 /**
@@ -189,6 +192,7 @@ struct ipa_wdi_pipe_setup_info_smmu {
  * @tx_smmu: smmu parameters to connect TX pipe(from IPA to WLAN)
  * @rx: parameters to connect RX pipe(from WLAN to IPA)
  * @rx_smmu: smmu parameters to connect RX pipe(from WLAN to IPA)
+ * @is_tx1_used: to notify extra pipe required/not
  */
 struct ipa_wdi_conn_in_params {
 	ipa_notify_cb notify;
@@ -204,6 +208,11 @@ struct ipa_wdi_conn_in_params {
 		struct ipa_wdi_pipe_setup_info rx;
 		struct ipa_wdi_pipe_setup_info_smmu rx_smmu;
 	} u_rx;
+    bool is_tx1_used;
+	union {
+		struct ipa_wdi_pipe_setup_info tx;
+		struct ipa_wdi_pipe_setup_info_smmu tx_smmu;
+	} u_tx1;
 };
 
 /**
@@ -211,10 +220,12 @@ struct ipa_wdi_conn_in_params {
  *				to WLAN driver
  * @tx_uc_db_pa: physical address of IPA uC doorbell for TX
  * @rx_uc_db_pa: physical address of IPA uC doorbell for RX
+ * @tx1_uc_db_pa: physical address of IPA uC doorbell for TX1
  */
 struct ipa_wdi_conn_out_params {
 	phys_addr_t tx_uc_db_pa;
 	phys_addr_t rx_uc_db_pa;
+    phys_addr_t tx1_uc_db_pa;
 };
 
 /**
