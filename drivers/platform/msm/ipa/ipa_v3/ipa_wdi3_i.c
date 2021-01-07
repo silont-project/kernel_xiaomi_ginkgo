@@ -457,7 +457,7 @@ int ipa3_conn_wdi3_pipes(struct ipa_wdi_conn_in_params *in,
 	int result = 0;
 	u32 gsi_db_addr_low, gsi_db_addr_high;
 	void __iomem *db_addr;
-	u32 evt_ring_db_addr_low, evt_ring_db_addr_high;
+	u32 evt_ring_db_addr_low, evt_ring_db_addr_high, db_val = 0;
 
 	/* wdi3 only support over gsi */
 	if (!ipa3_ctx->ipa_wdi3_over_gsi) {

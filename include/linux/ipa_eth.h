@@ -1226,6 +1226,7 @@ struct ipa_eth_buff_smmu_map {
  * @client_info: vendor specific pipe setup info
  * @db_pa: doorbell physical address
  * @db_val: doorbell value ethernet HW need to ring
+ * @db_val: doorbell value ethernet HW need to ring
  */
 struct ipa_eth_pipe_setup_info {
 	/* transfer ring info */
