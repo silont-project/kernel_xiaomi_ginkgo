@@ -7,11 +7,11 @@ jobs:
       - run:
           command: |
            apt update -qq -y && apt install -qq -y openjdk-11-jre-headless
-           git clone --depth=1 https://github.com/silont-project/kernel_xiaomi_ginkgo -b new silont
+           git clone --depth=1 https://github.com/silont-project/kernel_xiaomi_ginkgo -b x10 silont
            cd silont
            wget -q https://github.com/rzlamrr/scripts/raw/master/KERNEL/compile.sh
            chmod +x compile.sh
-           bash compile.sh -c silont
+           bash compile.sh -c silont -d silont-perf_defconfig -cn Arjasa
            ls
 workflows:
   version: 2.1
