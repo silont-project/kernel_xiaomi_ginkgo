@@ -8,7 +8,7 @@ PREFIX ?= /usr
 DESTDIR ?=
 SRCDIR ?= $(PREFIX)/src
 DKMSDIR ?= $(SRCDIR)/wireguard
-DEPMOD ?= depmod
+DEPMOD ?= /sbin/depmod
 DEPMODBASEDIR ?= /
 
 PWD := $(shell pwd)
