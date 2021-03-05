@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2020, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1021,8 +1021,6 @@ void msm_isp_increment_frame_id(struct vfe_device *vfe_dev,
 				ISP_EVENT_REG_UPDATE_MISSING);
 		}
 	}
-	vfe_dev->isp_page->kernel_sofid =
-		vfe_dev->axi_data.src_info[frame_src].frame_id;
 }
 
 static void msm_isp_update_pd_stats_idx(struct vfe_device *vfe_dev,
@@ -3789,7 +3787,7 @@ static int msm_isp_request_frame(struct vfe_device *vfe_dev,
 		vfe_dev->axi_data.src_info[frame_src].frame_id +
 		vfe_dev->axi_data.src_info[frame_src].sof_counter_step)) ||
 		((!vfe_dev->axi_data.src_info[frame_src].active))) {
-		trace_printk("%s:%d invalid frame id %d cur frame id %d pix %d\n",
+		pr_debug("%s:%d invalid frame id %d cur frame id %d pix %d\n",
 			__func__, __LINE__, frame_id,
 			vfe_dev->axi_data.src_info[frame_src].frame_id,
 			vfe_dev->axi_data.src_info[frame_src].active);
